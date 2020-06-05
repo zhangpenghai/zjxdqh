@@ -1,0 +1,19 @@
+server:
+    port: 19001
+spring:
+    datasource:
+#        运营库配置
+        happy:
+            url: jdbc:mysql://192.168.1.102:3306/happy_charge_line?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+            driverClassName: com.mysql.cj.jdbc.Driver
+            username: root
+            password: zjxdqh.123
+        #采集库连接配置
+        collect:
+            url: jdbc:mysql://192.168.1.102:3306/collect?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&autoReconnectForPools=true&serverTimezone=Asia/Shanghai
+            driverClassName: com.mysql.cj.jdbc.Driver
+            username: root
+            password: zjxdqh.123
+    mybatis:
+        mapper:
+            package: com.zjxdqh.happchargeserver.mapper

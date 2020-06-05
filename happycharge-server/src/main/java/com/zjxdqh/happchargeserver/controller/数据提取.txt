@@ -1,0 +1,93 @@
+//
+//
+//    /**
+//     * 充电设备接口状态:
+//     * 1：空闲2：占用（未充电）3：占用（充电中）4：占用（预约锁定）255：故障
+//     */
+//    private Integer ConnectorStatus;
+//
+//    /**
+//     * A 相电流: 必填参数
+//     * 单位：A，默认：0 含直流(输出)
+//     */
+//    private Double CurrentA;
+//
+//    /**
+//     * B 相电流: 非必填参数
+//     * 单位：A，默认：0
+//     */
+//    private Double CurrentB;
+//
+//    /**
+//     * C 相电流: 非必填参数
+//     * 单位：A，默认：0
+//     */
+//    private Double CurrentC;
+//
+//    /**
+//     * A 相电压: 必填参数
+//     * 单位：V，默认：0 含直流(输出)
+//     */
+//    private Double VoltageA;
+//
+//    /**
+//     * B 相电压: 非必填参数
+//     * 单位：V，默认：0
+//     */
+//    private Double VoltageB;
+//
+//    /**
+//     * C 相电压: 非必填参数
+//     * 单位：V，默认：0
+//     */
+//    private Double VoltageC;
+//
+//
+//
+//
+//
+//
+///**
+// * 时段数 N
+// * 范围：0～32
+// */
+//private Integer SumPeriod;
+//
+//
+///**
+// * 充电开始时间
+// */
+//private Date DetailStartTime;
+///**
+// * 充电结束时间
+// */
+//private Date DetailEndTime;
+///**
+// * 时段电价
+// * 小数点后 4 位；若无该类信息默认填 0；
+// */
+//private Double ElecPrice;
+///**
+// * 时段服务费价格
+// * 小数点后 4 位；若无该类信息默认填 0；
+// */
+//private Double SevicePrice;
+///**
+// * 时段 充电量
+// * 单位：度，小数点后 2 位
+// */
+//private Double DetailPower;
+///**
+// * 时段 电费
+// * 小数点后 2 位；若无该类信息默认填 0；
+// */
+//private Double DetailElecMoney;
+///**
+// * 时段 服务费
+// * 小数点后 2 位；若无该类信息默认填 0；
+// */
+//private Double DetailSeviceMoney;
+//
+//
+//
+//如果充电成功：

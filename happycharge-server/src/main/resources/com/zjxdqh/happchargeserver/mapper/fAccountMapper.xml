@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FAccountMapper">
+	<sql id="column">
+		t.aid aid, 
+		t.uid uid, 
+		t.balance balance, 
+		t.cash cash, 
+		t.amount amount, 
+		t.status status, 
+		t.createtime createtime, 
+		t.lasttime lasttime,
+		t.noRefundAmount norefundamount
+	</sql>
+	<update id="updateAmountById">
+		update f_account set balance=balance-#{param.refundAmount},
+		cash=cash-#{param.refundAmount} where uid=#{param.userId}
+	</update>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.happchargeserver.model.FAccount">
+		SELECT
+			<include refid="column"/>
+		FROM f_account t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="aid != null and aid != '' ">
+  				AND t.aid = #{aid} 
+  			</if>
+			<if test="uid != null and uid != '' ">
+  				AND t.uid = #{uid} 
+  			</if>
+			<if test="balance != null and balance != '' ">
+  				AND t.balance = #{balance} 
+  			</if>
+			<if test="cash != null and cash != '' ">
+  				AND t.cash = #{cash} 
+  			</if>
+			<if test="amount != null and amount != '' ">
+  				AND t.amount = #{amount} 
+  			</if>
+			<if test="status != null and status != '' ">
+  				AND t.status = #{status} 
+  			</if>
+			<if test="createtime != null and createtime != '' ">
+  				AND t.createtime = #{createtime} 
+  			</if>
+			<if test="lasttime != null and lasttime != '' ">
+  				AND t.lasttime = #{lasttime} 
+  			</if>
+			<if test="norefundamount != null and norefundamount != '' ">
+				AND t.noRefundAmount = #{norefundamount}
+			</if>
+		</trim>
+	</select>
+
+
+	<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+	<select id="queryRefund" resultType="com.zjxdqh.face.vo.QueryRefundVo">
+
+    select (cash-norefundamount) as refundAmount,norefundamount from f_account where uid=#{uid}
+
+	</select>
+
+
+
+</mapper>

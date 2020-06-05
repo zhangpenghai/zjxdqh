@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FUserMapper">
+    <sql id="column">
+		t.uid uid, 
+		t.uname uname, 
+		t.phone phone, 
+		t.pwd pwd, 
+		t.salt salt, 
+		t.paypwd paypwd, 
+		t.paysalt paysalt, 
+		t.nickname nickname, 
+		t.nickicon nickicon, 
+		t.lid lid, 
+		t.lastIP lastip, 
+		t.nowIP nowip, 
+		t.lasttime lasttime, 
+		t.nowtime nowtime, 
+		t.regIP regip, 
+		t.regtime regtime, 
+		t.cid cid, 
+		t.score score, 
+		t.iscompany iscompany, 
+		t.sex sex, 
+		t.birsday birsday, 
+		t.provinceid provinceid, 
+		t.cityid cityid, 
+		t.countyid countyid, 
+		t.address address, 
+		t.baseinformation baseinformation, 
+		t.realnameauth realnameauth, 
+		t.identitycard identitycard, 
+		t.countNum countnum, 
+		t.userStatus userstatus, 
+		t.typeicon typeicon 
+	</sql>
+
+    <!-- 根据map参数条件来查询 author:code_generator -->
+    <select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.happchargeserver.model.FUser">
+        SELECT
+        <include refid="column"/>
+        FROM f_user t
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="uid != null and uid != '' ">
+                AND t.uid = #{uid}
+            </if>
+            <if test="uname != null and uname != '' ">
+                AND t.uname = #{uname}
+            </if>
+            <if test="phone != null and phone != '' ">
+                AND t.phone = #{phone}
+            </if>
+            <if test="pwd != null and pwd != '' ">
+                AND t.pwd = #{pwd}
+            </if>
+            <if test="salt != null and salt != '' ">
+                AND t.salt = #{salt}
+            </if>
+            <if test="paypwd != null and paypwd != '' ">
+                AND t.paypwd = #{paypwd}
+            </if>
+            <if test="paysalt != null and paysalt != '' ">
+                AND t.paysalt = #{paysalt}
+            </if>
+            <if test="nickname != null and nickname != '' ">
+                AND t.nickname = #{nickname}
+            </if>
+            <if test="nickicon != null and nickicon != '' ">
+                AND t.nickicon = #{nickicon}
+            </if>
+            <if test="lid != null and lid != '' ">
+                AND t.lid = #{lid}
+            </if>
+            <if test="lastip != null and lastip != '' ">
+                AND t.lastIP = #{lastip}
+            </if>
+            <if test="nowip != null and nowip != '' ">
+                AND t.nowIP = #{nowip}
+            </if>
+            <if test="lasttime != null and lasttime != '' ">
+                AND t.lasttime = #{lasttime}
+            </if>
+            <if test="nowtime != null and nowtime != '' ">
+                AND t.nowtime = #{nowtime}
+            </if>
+            <if test="regip != null and regip != '' ">
+                AND t.regIP = #{regip}
+            </if>
+            <if test="regtime != null and regtime != '' ">
+                AND t.regtime = #{regtime}
+            </if>
+            <if test="cid != null and cid != '' ">
+                AND t.cid = #{cid}
+            </if>
+            <if test="score != null and score != '' ">
+                AND t.score = #{score}
+            </if>
+            <if test="iscompany != null and iscompany != '' ">
+                AND t.iscompany = #{iscompany}
+            </if>
+            <if test="sex != null and sex != '' ">
+                AND t.sex = #{sex}
+            </if>
+            <if test="birsday != null and birsday != '' ">
+                AND t.birsday = #{birsday}
+            </if>
+            <if test="provinceid != null and provinceid != '' ">
+                AND t.provinceid = #{provinceid}
+            </if>
+            <if test="cityid != null and cityid != '' ">
+                AND t.cityid = #{cityid}
+            </if>
+            <if test="countyid != null and countyid != '' ">
+                AND t.countyid = #{countyid}
+            </if>
+            <if test="address != null and address != '' ">
+                AND t.address = #{address}
+            </if>
+            <if test="baseinformation != null and baseinformation != '' ">
+                AND t.baseinformation = #{baseinformation}
+            </if>
+            <if test="realnameauth != null and realnameauth != '' ">
+                AND t.realnameauth = #{realnameauth}
+            </if>
+            <if test="identitycard != null and identitycard != '' ">
+                AND t.identitycard = #{identitycard}
+            </if>
+            <if test="countnum != null and countnum != '' ">
+                AND t.countNum = #{countnum}
+            </if>
+            <if test="userstatus != null and userstatus != '' ">
+                AND t.userStatus = #{userstatus}
+            </if>
+            <if test="typeicon != null and typeicon != '' ">
+                AND t.typeicon = #{typeicon}
+            </if>
+        </trim>
+    </select>
+
+    <!--#############################################################################-->
+    <!--############################### 自定义方法实现区 ################################-->
+    <!--#############################################################################-->
+
+
+    <update id="updateLoginPassword">
+        update f_user set  pwd = #{pwd}  where phone = #{phone}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FRefundRecordMapper">
+	<sql id="column">
+		t.id id, 
+		t.uid uid, 
+		t.refundAmount refundamount, 
+		t.refundReasonId refundreasonid, 
+		t.othReason othreason, 
+		t.status status, 
+		t.refundFailReason refundfailreason, 
+		t.createtime createtime, 
+		t.successtime successtime, 
+		t.failtime failtime 
+	</sql>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.face.vo.FRefundRecord">
+		SELECT
+			<include refid="column"/>
+		FROM f_refund_record t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null and id != '' ">
+  				AND t.id = #{id} 
+  			</if>
+			<if test="uid != null and uid != '' ">
+  				AND t.uid = #{uid} 
+  			</if>
+			<if test="refundamount != null and refundamount != '' ">
+  				AND t.refundAmount = #{refundamount} 
+  			</if>
+			<if test="refundreasonid != null and refundreasonid != '' ">
+  				AND t.refundReasonId = #{refundreasonid} 
+  			</if>
+			<if test="othreason != null and othreason != '' ">
+  				AND t.othReason = #{othreason} 
+  			</if>
+			<if test="status != null and status != '' ">
+  				AND t.status = #{status} 
+  			</if>
+			<if test="refundfailreason != null and refundfailreason != '' ">
+  				AND t.refundFailReason = #{refundfailreason} 
+  			</if>
+			<if test="createtime != null and createtime != '' ">
+  				AND t.createtime = #{createtime} 
+  			</if>
+			<if test="successtime != null and successtime != '' ">
+  				AND t.successtime = #{successtime} 
+  			</if>
+			<if test="failtime != null and failtime != '' ">
+  				AND t.failtime = #{failtime} 
+  			</if>
+		</trim>
+	</select>
+	<select id="getPageList" resultType="com.zjxdqh.face.vo.RefundRecordVo">
+
+    select refundAmount,`status`,refundFailReason,createtime,successtime,
+    failtime from f_refund_record WHERE uid=#{uid} order by createtime desc
+
+	</select>
+
+	<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+
+
+</mapper>

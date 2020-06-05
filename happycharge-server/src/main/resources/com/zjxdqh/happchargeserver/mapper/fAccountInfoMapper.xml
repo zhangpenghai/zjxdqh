@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FAccountInfoMapper">
+    <sql id="column">
+		t.id id, 
+		t.sn sn, 
+		t.uid uid, 
+		t.oid oid, 
+		t.otype otype, 
+		t.paytype paytype, 
+		t.amount amount, 
+		t.balanceBef balancebef, 
+		t.balanceAft balanceaft, 
+		t.accountBef accountbef, 
+		t.accountAft accountaft, 
+		t.cashBef cashbef, 
+		t.cashAft cashaft, 
+		t.createtime createtime, 
+		t.title title, 
+		t.userremark userremark, 
+		t.remark remark, 
+		t.operatorId operatorid 
+	</sql>
+
+    <!-- 根据map参数条件来查询 author:code_generator -->
+    <select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.happchargeserver.model.FAccountInfo">
+        SELECT
+        <include refid="column"/>
+        FROM f_account_info t
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null and id != '' ">
+                AND t.id = #{id}
+            </if>
+            <if test="sn != null and sn != '' ">
+                AND t.sn = #{sn}
+            </if>
+            <if test="uid != null and uid != '' ">
+                AND t.uid = #{uid}
+            </if>
+            <if test="oid != null and oid != '' ">
+                AND t.oid = #{oid}
+            </if>
+            <if test="otype != null and otype != '' ">
+                AND t.otype = #{otype}
+            </if>
+            <if test="paytype != null and paytype != '' ">
+                AND t.paytype = #{paytype}
+            </if>
+            <if test="amount != null and amount != '' ">
+                AND t.amount = #{amount}
+            </if>
+            <if test="balancebef != null and balancebef != '' ">
+                AND t.balanceBef = #{balancebef}
+            </if>
+            <if test="balanceaft != null and balanceaft != '' ">
+                AND t.balanceAft = #{balanceaft}
+            </if>
+            <if test="accountbef != null and accountbef != '' ">
+                AND t.accountBef = #{accountbef}
+            </if>
+            <if test="accountaft != null and accountaft != '' ">
+                AND t.accountAft = #{accountaft}
+            </if>
+            <if test="cashbef != null and cashbef != '' ">
+                AND t.cashBef = #{cashbef}
+            </if>
+            <if test="cashaft != null and cashaft != '' ">
+                AND t.cashAft = #{cashaft}
+            </if>
+            <if test="createtime != null and createtime != '' ">
+                AND t.createtime = #{createtime}
+            </if>
+            <if test="title != null and title != '' ">
+                AND t.title = #{title}
+            </if>
+            <if test="userremark != null and userremark != '' ">
+                AND t.userremark = #{userremark}
+            </if>
+            <if test="remark != null and remark != '' ">
+                AND t.remark = #{remark}
+            </if>
+            <if test="operatorid != null and operatorid != '' ">
+                AND t.operatorId = #{operatorid}
+            </if>
+        </trim>
+    </select>
+
+
+    <!--#############################################################################-->
+    <!--############################### 自定义方法实现区 ################################-->
+    <!--#############################################################################-->
+
+    <select id="getOrderStarttime" resultType="java.lang.String">
+        SELECT date_format(createtime,'%Y-%m')createtime	FROM f_account_info WHERE uid = #{uid} and date_format(createtime,'%Y-%m-%d') >= '2019-01-01'  ORDER BY createtime asc LIMIT 0,1;
+    </select>
+
+
+    <select id="getUserBill" resultType="com.zjxdqh.face.vo.UserBillVo">
+        SELECT * FROM (
+        SELECT * FROM (
+        SELECT if(title='活动奖励','活动奖励',if(paytype=3,'充电消费(企业账户)','充电消费(个人账户)')) AS title,amount,createtime,2 as types FROM
+        f_account_info
+        WHERE uid = #{uid} AND date_format(createtime,'%Y-%m-%d') >= '2019-01-01' AND title in ('充电消费','活动奖励') and amount != 0
+        union all
+        select if(platformtype=1,'用户充值(支付宝)','用户充值(微信)') AS title , amount ,createtime,1 as types from f_order_recharge
+        where uid = #{uid} AND date_format(createtime,'%Y-%m-%d') >= '2019-01-01' AND `status` = 1
+        ) b ORDER BY createtime desc
+        ) bill
+        WHERE date_format(createtime,'%Y-%m') = #{date}
+        <if test="typeOne!=null and typeOne!=''">
+            AND title = '充电消费(个人账户)'
+        </if>
+        <if test="typeTwo!=null and typeTwo!=''">
+            AND title = '充电消费(企业账户)'
+        </if>
+    </select>
+
+    <select id="getTotalRecharge" resultType="java.math.BigDecimal">
+	select sum(amount) as 'totalRecharge' from f_order_recharge
+	where uid =  #{uid}
+	AND date_format(createtime,'%Y-%m-%d') >= '2019-01-01'
+	AND `status` = 1
+	AND date_format(createtime,'%Y-%m') = #{date}
+    </select>
+
+    <select id="getTotalConsume" resultType="java.math.BigDecimal">
+    SELECT sum(amount) as 'totalConsume' FROM f_account_info
+	WHERE uid =  #{uid}
+	AND date_format(createtime,'%Y-%m-%d') >= '2019-01-01'
+	AND title in ('充电消费')
+	AND date_format(createtime,'%Y-%m') =  #{date}
+    </select>
+
+</mapper>

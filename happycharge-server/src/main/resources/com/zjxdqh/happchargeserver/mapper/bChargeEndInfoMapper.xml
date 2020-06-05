@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.BChargeEndInfoMapper">
+
+    <select id="findOne" resultType="com.zjxdqh.face.vo.BChargeEndInfo" parameterType="java.lang.String">
+        SELECT init_kilowatt,end_kilowatt  FROM b_charge_end_info WHERE order_no = #{orderNo} LIMIT 0,1
+    </select>
+
+<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+
+
+</mapper>

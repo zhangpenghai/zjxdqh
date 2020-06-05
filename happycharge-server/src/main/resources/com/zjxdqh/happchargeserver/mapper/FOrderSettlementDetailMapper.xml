@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FOrderSettlementDetailMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        settle_detail_id, sn, start_time, end_time, power, service_price, ele_price, sprice, eprice, service_money, ele_money, discount_type, discount_value, create_time
+    </sql>
+
+    <select id="getFOrderSettlementDetailBySn" resultType="com.zjxdqh.face.vo.FOrderSettlementDetail">
+        select <include refid="Base_Column_List"/> from f_order_settlement_detail where sn = #{sn} order by  start_time asc
+    </select>
+
+</mapper>

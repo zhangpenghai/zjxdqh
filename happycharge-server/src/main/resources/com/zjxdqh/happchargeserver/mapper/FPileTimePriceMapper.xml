@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FPileTimePriceMapper">
+
+	<select id="getPolicyInfos" resultType="com.zjxdqh.face.vo.FPileTimePrice" parameterType="java.lang.String">
+		select REPLACE(stime,'0000-00-00 ','') stime,a.price,a.serviceprice from f_pile_time_price a
+   left join  f_pile_time_price_temp b on a.sid=b.code
+   left join f_pile_site d on d.ptid=b.id
+   where d.sid = (SELECT sid FROM f_pile WHERE pilenum =#{pilenum})
+	</select>
+    <select id="selectTime" parameterType="map" resultType="com.zjxdqh.face.vo.FPileTimePrice">
+  select p.ptid,p.sid,p.price,p.serviceprice,p.pricetype,p.stime,p.etime,p.createtime
+  from f_pile_time_price_temp t,f_pile_time_price p where t.id=#{id} and
+  t.code=p.sid and ( #{time}
+  between p.stime and p.etime) limit 0,1
+    </select>
+
+</mapper>

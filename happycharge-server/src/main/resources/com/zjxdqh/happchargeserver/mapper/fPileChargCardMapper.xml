@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FPileChargCardMapper">
+	<sql id="column">
+		t.pcid pcid, 
+		t.SN sn, 
+		t.password password, 
+		t.pcstate pcstate, 
+		t.expiretime expiretime, 
+		t.createtime createtime, 
+		t.activation activation, 
+		t.uid uid, 
+		t.banbale banbale, 
+		t.usertype usertype 
+	</sql>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.face.vo.FPileChargCard">
+		SELECT
+			<include refid="column"/>
+		FROM f_pile_charg_card t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="pcid != null and pcid != '' ">
+  				AND t.pcid = #{pcid} 
+  			</if>
+			<if test="sn != null and sn != '' ">
+  				AND t.SN = #{sn} 
+  			</if>
+			<if test="password != null and password != '' ">
+  				AND t.password = #{password} 
+  			</if>
+			<if test="pcstate != null and pcstate != '' ">
+  				AND t.pcstate = #{pcstate} 
+  			</if>
+			<if test="expiretime != null and expiretime != '' ">
+  				AND t.expiretime = #{expiretime} 
+  			</if>
+			<if test="createtime != null and createtime != '' ">
+  				AND t.createtime = #{createtime} 
+  			</if>
+			<if test="activation != null and activation != '' ">
+  				AND t.activation = #{activation} 
+  			</if>
+			<if test="uid != null and uid != '' ">
+  				AND t.uid = #{uid} 
+  			</if>
+			<if test="banbale != null and banbale != '' ">
+  				AND t.banbale = #{banbale} 
+  			</if>
+			<if test="usertype != null and usertype != '' ">
+  				AND t.usertype = #{usertype} 
+  			</if>
+		</trim>
+	</select>
+
+<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+
+
+</mapper>

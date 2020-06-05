@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FCouponsUserMapper">
+	<sql id="column">
+		t.coupons_user_id couponsUserId, 
+		t.user_id userId, 
+		t.coupons_id couponsId, 
+		t.coupons_amount couponsAmount, 
+		t.effect_time effectTime, 
+		t.expire_time expireTime, 
+		t.coupons_user_stat couponsUserStat, 
+		t.create_time createTime 
+	</sql>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.face.vo.FCouponsUser">
+		SELECT
+			<include refid="column"/>
+		FROM f_coupons_user t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="couponsUserId != null and couponsUserId != '' ">
+  				AND t.coupons_user_id = #{couponsUserId} 
+  			</if>
+			<if test="userId != null and userId != '' ">
+  				AND t.user_id = #{userId} 
+  			</if>
+			<if test="couponsId != null and couponsId != '' ">
+  				AND t.coupons_id = #{couponsId} 
+  			</if>
+			<if test="couponsAmount != null and couponsAmount != '' ">
+  				AND t.coupons_amount = #{couponsAmount} 
+  			</if>
+			<if test="effectTime != null and effectTime != '' ">
+  				AND t.effect_time = #{effectTime} 
+  			</if>
+			<if test="expireTime != null and expireTime != '' ">
+  				AND t.expire_time = #{expireTime} 
+  			</if>
+			<if test="couponsUserStat != null and couponsUserStat != '' ">
+  				AND t.coupons_user_stat = #{couponsUserStat} 
+  			</if>
+			<if test="createTime != null and createTime != '' ">
+  				AND t.create_time = #{createTime} 
+  			</if>
+		</trim>
+		order by create_time desc
+	</select>
+
+<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+	<update id="updateCouponUserTimeout" >
+		update f_coupons_user set coupons_user_stat = -1 where coupons_user_stat = 1 and expire_time &lt; now()
+	</update>
+
+
+
+</mapper>

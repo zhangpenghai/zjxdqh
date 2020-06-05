@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.ForderSettlementMapper">
+
+    <sql id="column">
+		t.id id,
+		t.sn sn,
+		t.total_amount totalAmount,
+		t.ele_amount eleAmount,
+		t.service_amount serviceAmount,
+		t.init_kilowatt initKilowatt,
+		t.end_kilowatt endKilowatt,
+		t.end_charge_id endChargeId,
+		t.discount_type discountType,
+		t.discount_value discountValue,
+		t.create_time createTime,
+		t.create_uid createUid,
+		t.modify_time modifyTime,
+		t.modify_uid modifyUid,
+		t.refer_total_amount referTotalAmount,
+		t.refer_ele_amount referEleAmount,
+		t.refer_service_amount referServiceAmount
+	</sql>
+
+    <select id="getChargeSuccessState" resultType="com.zjxdqh.happchargeserver.model.ForderSettlement" parameterType="java.lang.String">
+        SELECT fos.sn,fos.total_amount,fos.ele_amount,fos.service_amount,fo.esoc,fo.useele FROM f_order_settlement fos INNER JOIN f_order fo ON fos.sn = fo.sn WHERE fos.sn = #{sn}
+    </select>
+
+</mapper>

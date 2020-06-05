@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FPileGunMapper">
+
+
+    <select id="getPilesByStationId" resultType="com.zjxdqh.face.vo.PileStatusInfoVo">
+    select f_pile.pilenum,f_pile_gun.gnum, f_pile_gun.id gid,
+f_pile_gun.gstate from f_pile_gun left join f_pile on f_pile_gun.pid=f_pile.pid
+left join f_pile_site on f_pile_site.sid=f_pile.sid
+where f_pile_site.sid=#{stationID} and f_pile.pileNumLength=1
+    </select>
+
+
+    <select id="getPilesByPilegnum" resultType="com.zjxdqh.face.vo.PileStatusInfoVo">
+    select f_pile.pilenum,f_pile_gun.gnum, f_pile_gun.id gid,
+f_pile_gun.gstate from f_pile_gun left join f_pile on f_pile_gun.pid=f_pile.pid
+where f_pile.pileNumLength=1 AND  f_pile.pilenum=#{pilenum}
+and f_pile_gun.gnum=#{gnum}
+    </select>
+
+    <select id="notificationRecordsAmountInfo" resultType="com.zjxdqh.face.vo.Subsidy">
+        SELECT
+        concat(fp.pilenum,fpg.gnum) 'ConnectorID',
+        fpg.gnum 'EquipmentID',
+        fp.sid 'StationID',
+        fps.stype 'StakeType'
+        FROM
+        supersive_info si
+        LEFT JOIN supervise_evcs_site ses ON si.supersive_id = ses.supervise_id
+        LEFT JOIN f_pile_site fps ON fps.sid = ses.pile_site_id
+        LEFT JOIN f_pile fp ON fp.sid = fps.sid
+        LEFT JOIN f_pile_gun fpg ON fpg.pid = fp.pid
+        WHERE si.supersive_id = #{supersiveId}
+    </select>
+    <select id="getListPileGun" resultType="com.zjxdqh.face.vo.PileStatusInfoVo">
+        select f_pile.pilenum,f_pile_gun.gnum, f_pile_gun.id gid,
+        f_pile_gun.gstate from f_pile_gun left join f_pile on f_pile_gun.pid=f_pile.pid
+        where f_pile.pileNumLength=1
+        <if test="pilenum != null and pilenum!='' ">AND  f_pile.pilenum=#{pilenum} </if>
+        <if test="gnum != null and gnum!='' ">and f_pile_gun.gnum=#{gnum} </if>
+    </select>
+    <select id="queryPileGunState" resultType="com.zjxdqh.face.vo.PileGunStateVo">
+        SELECT a.pile_num pileNum,a.pile_signin_state as pileSigninState,a.build_status as buildStatus, b.gun_num gunNum,b.gun_charging_state as gunChargingState    FROM t_pile a
+        left join t_gun b on a.pile_num=b.pile_num where 1=1
+        <if test="pileNum!=null and pileNum!='' "> AND a.pile_num=#{pileNum} </if>
+        <if test="gunNum!=null and gunNum!='' "> and b.gun_num=#{gunNum} </if>
+    </select>
+
+</mapper>

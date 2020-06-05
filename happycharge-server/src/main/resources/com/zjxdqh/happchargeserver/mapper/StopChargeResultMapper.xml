@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.StopChargeResultMapper">
+    <select id="orderByNum" parameterType="java.lang.String" resultType="com.zjxdqh.happchargeserver.model.StopChargeVo">
+        select  sn,ostate,pid,gunnumber,end_reason from  f_order where  sn =#{orderNo}
+    </select>
+</mapper>

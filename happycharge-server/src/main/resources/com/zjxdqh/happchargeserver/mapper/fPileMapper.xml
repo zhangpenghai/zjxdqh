@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FPileMapper">
+	<sql id="column">
+		t.pid pid, 
+		t.pname pname, 
+		t.detail detail, 
+		t.sid sid, 
+		t.longitude longitude, 
+		t.latitude latitude, 
+		t.support support, 
+		t.icon icon, 
+		t.usecount usecount, 
+		t.pstate pstate, 
+		t.guncount guncount, 
+		t.buildstate buildstate, 
+		t.gainmode gainmode, 
+		t.createtime createtime, 
+		t.haslock haslock, 
+		t.spacecount spacecount, 
+		t.provinceid provinceid, 
+		t.cityid cityid, 
+		t.areaid areaid, 
+		t.voltage voltage, 
+		t.current current, 
+		t.power power, 
+		t.address address, 
+		t.puid puid, 
+		t.trialStatus trialstatus, 
+		t.ptype ptype, 
+		t.potype potype, 
+		t.opentime opentime, 
+		t.endtime endtime, 
+		t.comunicatestate comunicatestate, 
+		t.successcount successcount, 
+		t.failcount failcount, 
+		t.pilenum pilenum, 
+		t.model model, 
+		t.manufacture manufacture, 
+		t.pileNumLength pilenumlength, 
+		t.upt_time uptTime 
+	</sql>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.face.vo.FPile">
+		SELECT
+			<include refid="column"/>
+		FROM f_pile t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="pid != null and pid != '' ">
+  				AND t.pid = #{pid} 
+  			</if>
+			<if test="pname != null and pname != '' ">
+  				AND t.pname = #{pname} 
+  			</if>
+			<if test="detail != null and detail != '' ">
+  				AND t.detail = #{detail} 
+  			</if>
+			<if test="sid != null and sid != '' ">
+  				AND t.sid = #{sid} 
+  			</if>
+			<if test="longitude != null and longitude != '' ">
+  				AND t.longitude = #{longitude} 
+  			</if>
+			<if test="latitude != null and latitude != '' ">
+  				AND t.latitude = #{latitude} 
+  			</if>
+			<if test="support != null and support != '' ">
+  				AND t.support = #{support} 
+  			</if>
+			<if test="icon != null and icon != '' ">
+  				AND t.icon = #{icon} 
+  			</if>
+			<if test="usecount != null and usecount != '' ">
+  				AND t.usecount = #{usecount} 
+  			</if>
+			<if test="pstate != null and pstate != '' ">
+  				AND t.pstate = #{pstate} 
+  			</if>
+			<if test="guncount != null and guncount != '' ">
+  				AND t.guncount = #{guncount} 
+  			</if>
+			<if test="buildstate != null and buildstate != '' ">
+  				AND t.buildstate = #{buildstate} 
+  			</if>
+			<if test="gainmode != null and gainmode != '' ">
+  				AND t.gainmode = #{gainmode} 
+  			</if>
+			<if test="createtime != null and createtime != '' ">
+  				AND t.createtime = #{createtime} 
+  			</if>
+			<if test="haslock != null and haslock != '' ">
+  				AND t.haslock = #{haslock} 
+  			</if>
+			<if test="spacecount != null and spacecount != '' ">
+  				AND t.spacecount = #{spacecount} 
+  			</if>
+			<if test="provinceid != null and provinceid != '' ">
+  				AND t.provinceid = #{provinceid} 
+  			</if>
+			<if test="cityid != null and cityid != '' ">
+  				AND t.cityid = #{cityid} 
+  			</if>
+			<if test="areaid != null and areaid != '' ">
+  				AND t.areaid = #{areaid} 
+  			</if>
+			<if test="voltage != null and voltage != '' ">
+  				AND t.voltage = #{voltage} 
+  			</if>
+			<if test="current != null and current != '' ">
+  				AND t.current = #{current} 
+  			</if>
+			<if test="power != null and power != '' ">
+  				AND t.power = #{power} 
+  			</if>
+			<if test="address != null and address != '' ">
+  				AND t.address = #{address} 
+  			</if>
+			<if test="puid != null and puid != '' ">
+  				AND t.puid = #{puid} 
+  			</if>
+			<if test="trialstatus != null and trialstatus != '' ">
+  				AND t.trialStatus = #{trialstatus} 
+  			</if>
+			<if test="ptype != null and ptype != '' ">
+  				AND t.ptype = #{ptype} 
+  			</if>
+			<if test="potype != null and potype != '' ">
+  				AND t.potype = #{potype} 
+  			</if>
+			<if test="opentime != null and opentime != '' ">
+  				AND t.opentime = #{opentime} 
+  			</if>
+			<if test="endtime != null and endtime != '' ">
+  				AND t.endtime = #{endtime} 
+  			</if>
+			<if test="comunicatestate != null and comunicatestate != '' ">
+  				AND t.comunicatestate = #{comunicatestate} 
+  			</if>
+			<if test="successcount != null and successcount != '' ">
+  				AND t.successcount = #{successcount} 
+  			</if>
+			<if test="failcount != null and failcount != '' ">
+  				AND t.failcount = #{failcount} 
+  			</if>
+			<if test="pilenum != null and pilenum != '' ">
+  				AND t.pilenum = #{pilenum} 
+  			</if>
+			<if test="model != null and model != '' ">
+  				AND t.model = #{model} 
+  			</if>
+			<if test="manufacture != null and manufacture != '' ">
+  				AND t.manufacture = #{manufacture} 
+  			</if>
+			<if test="pilenumlength != null and pilenumlength != '' ">
+  				AND t.pileNumLength = #{pilenumlength} 
+  			</if>
+			<if test="uptTime != null and uptTime != '' ">
+  				AND t.upt_time = #{uptTime} 
+  			</if>
+		</trim>
+	</select>
+
+<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+
+
+</mapper>

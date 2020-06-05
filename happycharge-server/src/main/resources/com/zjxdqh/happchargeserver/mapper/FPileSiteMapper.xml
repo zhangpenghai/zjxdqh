@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FPileSiteMapper">
+
+    <select id="getSuperviseSite" resultType="com.zjxdqh.face.vo.FPileSite">
+        SELECT ps.* FROM f_pile_site ps
+		  right JOIN supervise_evcs_site es ON ps.sid = es.pile_site_id
+		  right JOIN supersive_info p ON p.supersive_id = es.supervise_id
+		   WHERE p.operator_id = #{operatorId} AND p.operator_stat =1
+    </select>
+
+
+    <select id="getSupervisePile" resultType="com.zjxdqh.face.vo.FPile">
+        SELECT * FROM f_pile
+        <where >
+            and pileNumLength = 1
+            <if test="sids != null">
+                and
+                <foreach collection="sids" item="sid" open="sid in (" close=")" separator=",">
+                    #{sid}
+                </foreach>
+            </if>
+            <if test="startTime != null">
+              and  upt_time > #{startTime}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

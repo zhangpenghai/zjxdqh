@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.ForderMapper">
+
+    <select id="getForderBaseData" resultType="com.zjxdqh.face.vo.FOrder">
+        SELECT
+        oid,sn,pid,uid,gunnumber,ostate,paytype,createtime,end_reason,amount,useele,back_money,car_vin,starttime,endtime,supervise_id,supervise_sn
+        FROM f_order
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="sn != null">
+                AND sn = #{sn}
+            </if>
+            <if test="superviseSn != null">
+                AND supervise_sn = #{superviseSn}
+            </if>
+            <if test="superviseId != null">
+                AND supervise_id = #{superviseId}
+            </if>
+        </trim>
+
+    </select>
+
+
+    <select id="getStopChargeResult" resultType="com.zjxdqh.face.vo.FOrder">
+        SELECT ostate,pid,gunnumber, end_reason,supervise_id,supervise_sn FROM f_order WHERE sn = #{orderNo}
+    </select>
+
+
+    <select id="getAloneFrozenBalance" resultType="java.math.BigDecimal">
+        SELECT sum(amount)  FROM f_order WHERE uid = #{uid} AND ecid is null AND ostate not in (1,-1);
+    </select>
+
+    <select id="getEnterpriseFrozenBalance" resultType="java.math.BigDecimal">
+        SELECT SUM(amount) FROM f_order WHERE uid =  #{uid} AND ecid is not null AND ostate not in (1,-1);
+    </select>
+
+
+    <select id="queryAllComingOrders" resultType="com.zjxdqh.face.vo.FOrder">
+        select  * from  f_order where uid = #{uid} and  ostate not in
+        <foreach collection="ostate" close=")" open="(" item="ostate" separator=",">
+            #{ostate}
+        </foreach>
+    </select>
+
+    <select id="queryLastOrder" resultType="com.zjxdqh.face.vo.FOrder">
+        select  * from  f_order where pid = #{pid} and gunnumber=#{gunnumber} order by oid desc LIMIT 1
+    </select>
+
+
+    <select id="findFOderBySn" resultType="com.zjxdqh.face.vo.FOrder">
+        select  * from  f_order where sn = #{oderSn}
+    </select>
+
+
+    <select id="findFOderBysuperviseSn" resultType="com.zjxdqh.face.vo.FOrder">
+        select  * from  f_order where supervise_sn = #{superviseSn}
+    </select>
+
+</mapper>

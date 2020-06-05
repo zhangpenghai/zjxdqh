@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.FCouponsUserOrderLogMapper">
+	<sql id="column">
+		t.id id, 
+		t.coupon_user_id couponUserId, 
+		t.sn sn,
+		t.order_detail_id orderDetailId, 
+		t.bef_order_amount befOrderAmount, 
+		t.bef_service_money befServiceMoney, 
+		t.bef_ele_money befEleMoney, 
+		t.aft_service_money aftServiceMoney, 
+		t.aft_ele_money aftEleMoney, 
+		t.aft_order_amount aftOrderAmount, 
+		t.create_time createTime 
+	</sql>
+
+	<!-- 根据map参数条件来查询 author:code_generator -->
+	<select id="getList" parameterType="java.util.Map" resultType="com.zjxdqh.face.vo.FCouponsUserOrderLog">
+		SELECT
+			<include refid="column"/>
+		FROM f_coupons_user_order_log t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null and id != '' ">
+  				AND t.id = #{id} 
+  			</if>
+			<if test="couponUserId != null and couponUserId != '' ">
+  				AND t.coupon_user_id = #{couponUserId} 
+  			</if>
+			<if test="sn != null and sn != '' ">
+  				AND t.sn = #{sn}
+  			</if>
+			<if test="orderDetailId != null and orderDetailId != '' ">
+  				AND t.order_detail_id = #{orderDetailId} 
+  			</if>
+			<if test="befOrderAmount != null and befOrderAmount != '' ">
+  				AND t.bef_order_amount = #{befOrderAmount} 
+  			</if>
+			<if test="befServiceMoney != null and befServiceMoney != '' ">
+  				AND t.bef_service_money = #{befServiceMoney} 
+  			</if>
+			<if test="befEleMoney != null and befEleMoney != '' ">
+  				AND t.bef_ele_money = #{befEleMoney} 
+  			</if>
+			<if test="aftServiceMoney != null and aftServiceMoney != '' ">
+  				AND t.aft_service_money = #{aftServiceMoney} 
+  			</if>
+			<if test="aftEleMoney != null and aftEleMoney != '' ">
+  				AND t.aft_ele_money = #{aftEleMoney} 
+  			</if>
+			<if test="aftOrderAmount != null and aftOrderAmount != '' ">
+  				AND t.aft_order_amount = #{aftOrderAmount} 
+  			</if>
+			<if test="createTime != null and createTime != '' ">
+  				AND t.create_time = #{createTime} 
+  			</if>
+		</trim>
+	</select>
+
+<!--#############################################################################-->
+<!--############################### 自定义方法实现区 ################################-->
+<!--#############################################################################-->
+
+
+
+
+
+</mapper>

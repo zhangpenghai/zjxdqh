@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.ChargeDataTempMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        oid, Soc, RemainTime, Voltage, Current, electricity, sid, whenlong
+    </sql>
+
+    <select id="getVoltageCurrent" resultType="com.zjxdqh.face.vo.ChargeDataTemp" parameterType="java.lang.String">
+        SELECT cdt.oid,cdt.Soc,cdt.RemainTime, cdt.Voltage,cdt.Current, cdt.electricity,cdt.useele, cdt.sid, cdt.whenlong FROM charge_data_temp cdt INNER JOIN f_order fo ON fo.oid = cdt.oid WHERE fo.sn = #{sn}
+    </select>
+
+</mapper>
+
+

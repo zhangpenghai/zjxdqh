@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjxdqh.happchargeserver.mapper.StationStatsInfoMapper">
+
+    <resultMap type="com.zjxdqh.face.vo.StationStatsInfo" id="stationStatsInfoList">
+        <result column="site_num" property="siteNum"/>
+        <result column="pile_num"  property="pileNum"/>
+        <result column="gun_num"  property="gunNum"/>
+        <result column="use_ele" property="useEle"/>
+
+    </resultMap>
+
+    <select id="queryStationStats" resultMap="stationStatsInfoList" parameterType="com.zjxdqh.face.param.StationStatsInfoParam">
+
+        select p.sid site_num,p.pilenum pile_num,o.gunnumber gun_num,o.useele use_ele from f_order o
+        left join f_pile p on p.pilenum = o.pid
+        where p.sid=#{StationID} and o.ostate=1 and DATE(o.createtime) between #{StartTime} and #{EndTime} order by o.createtime desc
+
+
+    </select>
+
+
+</mapper>
